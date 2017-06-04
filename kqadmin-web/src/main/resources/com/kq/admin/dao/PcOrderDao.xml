@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kq.admin.dao.PcOrderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kq.admin.entity.PcOrderEntity" id="pcOrderMap">
+        <result property="id" column="id"/>
+        <result property="openId" column="open_id"/>
+        <result property="name" column="name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="goTime" column="go_time"/>
+        <result property="startAddr" column="start_addr"/>
+        <result property="endAddr" column="end_addr"/>
+        <result property="memo" column="memo"/>
+        <result property="plates" column="plates"/>
+        <result property="reqNum" column="req_num"/>
+        <result property="price" column="price"/>
+        <result property="surplusSeat" column="surplus_seat"/>
+        <result property="status" column="status"/>
+        <result property="score" column="score"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="version" column="version"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.kq.admin.entity.PcOrderEntity">
+		select * from pc_order where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.kq.admin.entity.PcOrderEntity">
+		select * from pc_order
+		<where>
+			1=1
+			<if test="goTime != null and goTime != ''">
+				<![CDATA[ and `go_time` <= #{goTime} ]]>
+			</if>
+			<if test="status != null and status != ''">
+				and `status` = #{status}
+			</if>
+		</where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from pc_order 
+	</select>
+	 
+	<insert id="save" parameterType="com.kq.admin.entity.PcOrderEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into pc_order
+		(
+			`open_id`, 
+			`name`, 
+			`mobile`, 
+			`go_time`, 
+			`start_addr`, 
+			`end_addr`, 
+			`memo`, 
+			`plates`, 
+			`req_num`, 
+			`price`, 
+			`surplus_seat`, 
+			`status`, 
+			`score`, 
+			`create_time`, 
+			`create_by`, 
+			`version`, 
+			`update_time`, 
+			`update_by`
+		)
+		values
+		(
+			#{openId}, 
+			#{name}, 
+			#{mobile}, 
+			#{goTime}, 
+			#{startAddr}, 
+			#{endAddr}, 
+			#{memo}, 
+			#{plates}, 
+			#{reqNum}, 
+			#{price}, 
+			#{surplusSeat}, 
+			#{status}, 
+			#{score}, 
+			#{createTime}, 
+			#{createBy}, 
+			#{version}, 
+			#{updateTime}, 
+			#{updateBy}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.kq.admin.entity.PcOrderEntity">
+		update pc_order 
+		<set>
+			<if test="openId != null">`open_id` = #{openId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="goTime != null">`go_time` = #{goTime}, </if>
+			<if test="startAddr != null">`start_addr` = #{startAddr}, </if>
+			<if test="endAddr != null">`end_addr` = #{endAddr}, </if>
+			<if test="memo != null">`memo` = #{memo}, </if>
+			<if test="plates != null">`plates` = #{plates}, </if>
+			<if test="reqNum != null">`req_num` = #{reqNum}, </if>
+			<if test="price != null">`price` = #{price}, </if>
+			<if test="surplusSeat != null">`surplus_seat` = #{surplusSeat}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="score != null">`score` = #{score}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="version != null">`version` = #{version}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from pc_order where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from pc_order where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

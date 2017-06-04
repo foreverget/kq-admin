@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>com.kq.admin</groupId>
+		<artifactId>kqadmin-parent</artifactId>
+		<version>${kqadmin-version}</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>kqadmin-web</artifactId>
+	<packaging>war</packaging>
+	<description>孔雀管理后台</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.kq.admin</groupId>
+			<artifactId>kqadmin-common</artifactId>
+			<version>${kqadmin-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kq.admin</groupId>
+			<artifactId>kqadmin-shiro</artifactId>
+			<version>${kqadmin-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kq.admin</groupId>
+			<artifactId>kqadmin-gen</artifactId>
+			<version>${kqadmin-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kq.admin</groupId>
+			<artifactId>kqadmin-schedule</artifactId>
+			<version>${kqadmin-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kq.admin</groupId>
+			<artifactId>kqadmin-api</artifactId>
+			<version>${kqadmin-version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>kqadmin-parent</finalName>
+	</build>
+
+</project>
